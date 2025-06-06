@@ -1,0 +1,25 @@
+name: hola-mundo #nombre del workflow
+on: [push] #evento
+jobs:
+  hola-mundo: #nombre del job
+    runs-on: ubuntu-latest #donde se correrá
+    steps:
+      - name: Public IP #nombre del step
+        id: ip #identificador del step
+        uses: haythem/public-ip@v1.3
+
+      - name: Checkout aprendiendo-github-actions
+        uses: actions/checkout@v3
+        with:
+          ref: aprendiendo-github-actions
+
+      - name: Hola Mundo
+        run: echo "¡Hola Mundo desde ${{ steps.ip.outputs.ipv4 }}!"
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Run Hola-Mundo
+        run: node hola-mundo.js
